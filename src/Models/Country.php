@@ -6,6 +6,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\CollectedBy;
 use Illuminate\Support\Str;
 use Lwwcas\LaravelCountries\Abstract\CountryModel;
 use Lwwcas\LaravelCountries\Models\Concerns\HasCountriesList;
@@ -36,7 +37,9 @@ use Lwwcas\LaravelCountries\Models\CountryRegion;
 use Lwwcas\LaravelCountries\Models\CountryTranslation;
 use Lwwcas\LaravelCountries\Trait\WithCoordinatesBootstrap;
 use Lwwcas\LaravelCountries\Trait\WithFlagColorBootstrap;
+use Lwwcas\LaravelCountries\Collections\CountryCollection;
 
+#[CollectedBy(CountryCollection::class)]
 class Country extends CountryModel
 {
     use HasFactory,
@@ -135,39 +138,6 @@ class Country extends CountryModel
      */
     protected $attributes = [
         'is_visible' => true,
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * This section is particularly important due to limitations introduced in Laravel 10.
-     * Laravel 10 requires specific handling of attributes to ensure proper type casting
-     * and avoid issues such as "Array to string conversion."
-     *
-     * @var array
-     */
-    protected $casts = [
-        'languages' => 'array',
-        'tld' => 'array',
-        'alternative_tld' => 'array',
-        'borders' => 'array',
-        'timezones' => 'array',
-        'currency' => 'array',
-
-        'flag_emoji' => 'array',
-        'flag_colors' => 'array',
-        'flag_colors_web' => 'array',
-        'flag_colors_contrast' => 'array',
-        'flag_colors_hex' => 'array',
-        'flag_colors_rgb' => 'array',
-        'flag_colors_cmyk' => 'array',
-        'flag_colors_hsl' => 'array',
-        'flag_colors_hsv' => 'array',
-        'flag_colors_pantone' => 'array',
-
-        'independence_day' => 'date:Y-m-d',
-
-        'is_visible' => 'boolean',
     ];
 
     /**
